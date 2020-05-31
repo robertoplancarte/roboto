@@ -16,4 +16,22 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  # Add account roles to this line
+  ROLES = %i[admin member].freeze
+
+  # Store the roles in the roles json column and cast to booleans
+  store_accessor :roles, *ROLES
+
+  # Cast roles to/from booleans
+  ROLES.each do |role|
+    scope role, -> { where('roles @> ?', { role => true }.to_json) }
+
+    define_method(:"#{role}=") { |value| super ActiveRecord::Type::Boolean.new.cast(value) }
+    define_method(:"#{role}?") { send(role) }
+  end
+
+  def active_roles
+    ROLES.select { |role| send(:"#{role}?") }.compact
+  end
 end
