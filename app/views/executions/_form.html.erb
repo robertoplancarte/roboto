@@ -1,0 +1,31 @@
+<%= form_with(model: execution, local: true) do |form| %>
+  <% if execution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(execution.errors.count, "error") %> prohibited this execution from being saved:</h2>
+
+      <ul>
+        <% execution.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.text_field :started_at, placeholder: "Start at", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+
+    <%= form.text_field :input, placeholder: "Input", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+
+  <div class="p-3 mb-5 border rounded ">
+    <%= form.label :environment_id, "Environment:", class: "text-gray-500"%>
+    <%= form.select :environment_id, Environment.all.pluck(:name, :id), {}, {class: "bg-transparent float-right"} %>
+  </div>
+
+  <div class="p-3 mb-5 border rounded ">
+    <%= form.label :scriptid, "Script:", class: "text-gray-500"%>
+    <%= form.select :script_id, Script.all.pluck(:title, :id), {}, {class: "bg-transparent float-right"} %>
+  </div>
+
+  <div class="w-full">
+    <%= form.submit class: "py-3 text-center text-white bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none" %>
+  </div>
+<% end %>

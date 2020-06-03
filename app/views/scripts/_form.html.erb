@@ -1,0 +1,28 @@
+<%= form_with(model: script, local: true) do |form| %>
+  <% if script.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(script.errors.count, "error") %> prohibited this script from being saved:</h2>
+
+      <ul>
+        <% script.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.text_field :title, placeholder: "Name", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+
+  <%= form.text_field :path_to_application, placeholder: "Application path", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+
+  <%= form.text_field :command, placeholder: "Command", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+
+  <div class="mb-5">
+    <%= form.label :code, class: "text-gray-500" %>
+    <%= form.text_area :code, {class: "border-gray-400 rounded"} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: "py-3 text-center text-white bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none"  %>
+  </div>
+<% end %>

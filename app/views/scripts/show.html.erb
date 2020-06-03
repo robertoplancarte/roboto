@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @script.title %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @script.code %>
+</p>
+
+<p>
+  <strong>Aasm state:</strong>
+  <%= @script.aasm_state %>
+</p>
+
+<p>
+  <strong>Path to application:</strong>
+  <%= @script.path_to_application %>
+</p>
+
+<p>
+  <strong>Command:</strong>
+  <%= @script.command %>
+</p>
+
+<%= link_to 'Edit', edit_script_path(@script) %> |
+<%= link_to 'Back', scripts_path %>

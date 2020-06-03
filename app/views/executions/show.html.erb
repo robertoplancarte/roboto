@@ -1,0 +1,58 @@
+<div class="container max-w-3xl p-5 mx-auto bg-white shadow rounded-md">
+  <h1 class="mb-8 text-3xl text-center">Execution</h1>
+  <p id="notice"><%= notice %></p>
+
+  <p><%= button_to 'Execute', execute_execution_path(@execution) %></p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @execution.user.email %>
+  </p>
+
+  <p>
+    <strong>Environment:</strong>
+    <%= @execution.environment.name %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= @execution.aasm_state %>
+  </p>
+
+  <p>
+    <strong>Started at:</strong>
+    <%= @execution.started_at %>
+  </p>
+
+  <p>
+    <strong>Finished at:</strong>
+    <%= @execution.finished_at %>
+  </p>
+
+  <p>
+    <strong>Duration:</strong>
+    <% if @execution.finished_at.present? && @execution.started_at.present? %>
+      <%=(Time.parse(@execution.finished_at) - Time.parse(@execution.started_at)).to_s + 's' %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Code for script: <%= @execution.script.title %></strong>
+    <%= text_area_tag 'code', @execution.script.code, disabled: true  %>
+  </p>
+
+  <p>
+    <strong>Input:</strong>
+    <br> <%= text_area_tag 'input', @execution.input, disabled: true %>
+  </p>
+
+  <p>
+    <strong>Output:</strong>
+    <br>
+    <%= text_area_tag 'output', @execution.output, disabled: true  %>
+  </p>
+
+  <hr class="my-5">
+  <%= link_to 'Edit', edit_execution_path(@execution) %> |
+  <%= link_to 'Back', executions_path %>
+</div>

@@ -21,6 +21,10 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 # Authorization
 gem 'pundit'
+# SSH
+gem 'net-ssh'
+gem 'ed25519'
+gem 'bcrypt_pbkdf'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -40,6 +44,7 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'annotate'
+  gem 'hirb'
   gem 'solargraph'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'

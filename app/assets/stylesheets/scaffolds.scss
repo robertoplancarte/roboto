@@ -1,0 +1,21 @@
+table {
+  background-color: #FFF;
+}
+
+th {
+  padding: 5px;
+  border-bottom: 1px solid #222;
+  text-align: left;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid;
+}
+
+body {
+  background-color: #EEE;
+}

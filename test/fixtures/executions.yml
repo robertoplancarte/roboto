@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aasm_state: MyString
+  started_at: MyString
+  finished_at: MyString
+  input: MyString
+  output: MyString
+  user: one
+  environment: one
+
+two:
+  aasm_state: MyString
+  started_at: MyString
+  finished_at: MyString
+  input: MyString
+  output: MyString
+  user: two
+  environment: two

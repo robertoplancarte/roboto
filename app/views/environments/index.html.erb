@@ -1,0 +1,33 @@
+<div class="container max-w-5xl p-5 mx-auto bg-white shadow rounded-md">
+  <h1 class="mb-8 text-3xl text-center">Environments</h1>
+
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Private key path</th>
+        <th>FQDN</th>
+        <th>User name</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @environments.each do |environment| %>
+        <tr>
+          <td><%= environment.name %></td>
+          <td><%= environment.private_key_path %></td>
+          <td><%= environment.fqdn %></td>
+          <td><%= environment.user_name %></td>
+          <td><%= link_to 'Show', environment %></td>
+          <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
+          <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <hr class="my-5">
+
+  <%= link_to 'New Environment', new_environment_path %>
+</div>

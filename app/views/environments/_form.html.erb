@@ -1,0 +1,23 @@
+<%= form_with(model: environment, local: true) do |form| %>
+  <% if environment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(environment.errors.count, "error") %> prohibited this environment from being saved:</h2>
+
+      <ul>
+        <% environment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.text_field :name, placeholder: "Name", class: "block w-full p-3 mb-4 border rounded border-grey-light"%>
+
+    <%= form.text_field :private_key_path, placeholder: "Private Key Path", class: "block w-full p-3 mb-4 border rounded border-grey-light"%>
+
+    <%= form.text_field :fqdn, placeholder: "FQDN", class: "block w-full p-3 mb-4 border rounded border-grey-light" %>
+
+    <%= form.text_field :user_name, placeholder: "Username", class: "block w-full p-3 mb-4 border rounded border-grey-light" %>
+
+    <%= form.submit  class: "py-3 text-center text-white bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none" %>
+<% end %>

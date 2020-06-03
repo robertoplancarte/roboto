@@ -1,0 +1,1 @@
+puts Environment.find_by(name: ARGV[0]).id

@@ -1,0 +1,73 @@
+ENV["RAILS_ENV"] ||= 'development'
+
+require File.expand_path(File.dirname(__FILE__)) + "/../config/environment" unless defined?(Rails)
+
+subdomain = ARGV[0]
+
+abort("Please provide the subdomain of the account.") if subdomain.blank?
+
+begin
+  organization = Organization.find_by(subdomain: subdomain)
+  
+  abort("Organization needs an owner") unless organization.owners.any?
+
+  api_key      = organization.api_keys.create!(type: ApiKey::CORE_TYPE)
+
+  puts "Successfully created core API key for organization: #{subdomain}"
+  puts "The API key is:"
+
+  puts api_key.key
+rescue Mongoid::Errors::Validations => error
+  puts "Couldn't create key for organization with subdomain: #{subdomain}"
+  puts "Error:"
+  puts error.document.errors.full_messages
+
+  exit 1
+rescue Mongoid::Errors::DocumentNotFound
+  puts "No account was found with subdomain: #{subdomain}"
+
+  exit 1
+end
+
+begin
+  if organization.integrations_user_id.nil?
+    integrations_user = User.new
+    integrations_user.first_name = subdomain
+    integrations_user.last_name = "integrations"
+    integrations_user.email = "#{subdomain}_integrations@#{HOST}"
+    integrations_user.confirm
+    integrations_user.save!(validate: false)
+    organization.integrations_user_id = integrations_user.id
+
+    organization.teams.each do |team|
+      Team::RoleManager.new(integrations_user, team).invite_as('observer', organization.owners.first)
+    end
+
+    puts "Successfully created integrations user #{integrations_user.id}"
+  else
+    puts "Integrations user #{organization.integrations_user_id} already exists"
+  end
+
+  if organization.full_access_user_id.nil?
+    full_access_user = User.new
+    full_access_user.first_name = subdomain
+    full_access_user.last_name = "full_access"
+    full_access_user.email = "#{subdomain}_full_access@#{HOST}"
+    full_access_user.confirm
+    full_access_user.save!(validate: false)
+    organization.full_access_user_id = full_access_user.id
+
+    puts "Successfully created full access user #{full_access_user.id}"
+  else
+    puts "Full access user #{organization.full_access_user_id} already exists"
+  end
+
+  organization.save!
+rescue => exception
+  puts "Couldn't create integration and/or full access user"
+  puts "Error:"
+  puts exception.message
+  puts exception.backtrace.join("\n")
+
+  exit 1
+end

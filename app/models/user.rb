@@ -18,7 +18,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Add account roles to this line
-  ROLES = %i[admin member].freeze
+  ROLES = %i[admin developer tester supporter].freeze
 
   # Store the roles in the roles json column and cast to booleans
   store_accessor :roles, *ROLES

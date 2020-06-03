@@ -1,0 +1,42 @@
+<div class="container max-w-6xl p-5 mx-auto bg-white shadow rounded-md">
+  <h1 class="mb-8 text-3xl text-center">Executions</h1>
+
+  <table class="w-full">
+    <thead>
+      <tr>
+        <th>Requester</th>
+        <th>State</th>
+        <th>Started at</th>
+        <th>Duration</th>
+        <th>Input</th>
+        <th>Environment</th>
+        <th colspan="4"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @executions.each do |execution| %>
+        <tr>
+          <td><%= execution.user.email %></td>
+          <td><%= execution.aasm_state %></td>
+          <td title=<%= execution.started_at.to_s.split(' ').join('_') if execution.started_at.present? %>>
+            <%= time_ago_in_words(execution.started_at) + ' ago' if execution.started_at.present? %>
+          </td>
+          <td title=<%= execution.duration.round.to_s + "_second".pluralize(execution.duration.round) if execution.duration.present?%>>
+            <%= distance_of_time_in_words execution.duration if execution.duration.present? %>
+          </td>
+          <td><%= execution.input %></td>
+          <td><%= execution.environment.name %></td>
+          <td><%= button_to 'Execute', execute_execution_path(execution) %></td>
+          <td><%= link_to 'Show', execution %></td>
+          <td><%= link_to 'Edit', edit_execution_path(execution) %></td>
+          <td><%= link_to 'Destroy', execution, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <hr class="my-5">
+
+  <%= link_to 'New Execution', new_execution_path %>
+</div>
