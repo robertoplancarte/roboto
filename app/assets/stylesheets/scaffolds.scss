@@ -19,3 +19,11 @@ textarea {
 body {
   background-color: #EEE;
 }
+
+.CodeMirror {
+  border: 1px solid #eee;
+  height: auto !important;
+  max-height: 50em;
+  border-radius: 4px;
+  background-color: #3e4450 !important;
+}

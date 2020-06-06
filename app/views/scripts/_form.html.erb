@@ -18,11 +18,13 @@
   <%= form.text_field :command, placeholder: "Command", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
 
   <div class="mb-5">
-    <%= form.label :code, class: "text-gray-500" %>
-    <%= form.text_area :code, {class: "border-gray-400 rounded"} %>
+    <div data-controller="codemirror" class="h-auto">
+      <%= form.text_area :code, {'data-target':'codemirror.code' } %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit class: "py-3 text-center text-white bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none"  %>
+  <div class="flex justify-around actions">
+    <%= form.submit class: "py-3 text-center mr-5 text-gray-100 bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none"  %>
+    <%= link_to 'Cancel', scripts_path, class: "ml-5 px-4 py-3 text-center text-white bg-gray-600 rounded w-full hover:bg-gray-800" %>
   </div>
 <% end %>

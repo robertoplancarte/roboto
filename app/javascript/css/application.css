@@ -3,3 +3,6 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+@import "codemirror";
+@import "codemirror/theme/nord.css";
