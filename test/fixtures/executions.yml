@@ -8,6 +8,7 @@ one:
   output: MyString
   user: one
   environment: one
+  script: one
 
 two:
   aasm_state: MyString
@@ -17,3 +18,4 @@ two:
   output: MyString
   user: two
   environment: two
+  script: two

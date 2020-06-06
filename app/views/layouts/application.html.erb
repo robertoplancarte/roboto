@@ -11,8 +11,8 @@
   </head>
 
   <body>
-    <nav class="py-4 mb-10 overflow-auto text-white bg-gray-600 border-b-2 border-gray-600 border-solid shadow">
-      <ul class="flex float-left ml-10 space-x-10">
+    <nav class="mb-10 overflow-auto text-white bg-gray-600 shadow-md">
+      <ul class="flex float-left py-4 ml-5 space-x-10">
         <li class="hover:text-green-400"><%= link_to("Home", root_path) %></li>
         <% if policy(Environment).index? %>
           <li class="hover:text-green-400"><%= link_to("Environments", environments_path) %></li>
@@ -24,40 +24,32 @@
           <li class="hover:text-green-400"><%= link_to("Executions", executions_path) %></li>
         <% end %>
       </ul>
-      <ul class="flex float-right space-x-10">
-      <% if user_signed_in? %>
-      <li>
-        <%= current_user.active_roles.first.try :capitalize %>
-        <%= current_user.email %>        
-      </li>
-      <li class="hover:text-green-400">
-        <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
-      </li>
-      <% else %>
-      <li class="hover:text-green-400">
-        <%= link_to "Sign up", new_registration_path(User) %><br />
-      </li>
-      <li class="hover:text-green-400">
-        <%= link_to('Login', new_user_session_path) %>  
-      </li>
+      <ul class="flex float-right py-4 mr-5 space-x-10">
+        <% if user_signed_in? %>
+        <li>
+          <%= current_user.active_roles.first.try :capitalize %>
+          <%= current_user.email %>        
+        </li>
+        <li class="hover:text-green-400">
+          <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        
+        </li>
+        <% else %>
+        <li class="hover:text-green-400">
+          <%= link_to "Sign up", new_registration_path(User) %><br />
+        </li>
+        <li class="hover:text-green-400">
+          <%= link_to('Login', new_user_session_path) %>  
+        </li>
+        <% end %>
+      </ul>
+      <% flash.each do |message_type, message| %>
+        <div class="py-4 text-center clear-both <%= message_type == 'alert' ? 'bg-red-400' : 'bg-green-400' %> text-gray-600">
+          <%= message %>
+        </div>
       <% end %>
-      <ul>
     </nav>
 
     <%= yield %>
-
-    <% if notice %>
-      <div class="fixed bottom-0 right-0 w-5/6 max-w-sm m-8 alert-toast md:w-full">
-        <input type="checkbox" class="hidden" id="footertoast">
-        <label class="flex items-start justify-between w-full h-10 p-2 text-white bg-green-500 rounded shadow-lg cursor-pointer close" title="close" for="footertoast">
-          <div>
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
-          </div>
-          <span class="float-right">X</span>
-        </label>
-      </div>
-    <% end %>
 
   </body>
 </html>

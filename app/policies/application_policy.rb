@@ -7,15 +7,21 @@ class ApplicationPolicy
   end
 
   def index?
-    false
+    return false if @user.nil?
+
+    @user.admin?
   end
 
   def show?
-    false
+    return false if @user.nil?
+
+    @user.admin?
   end
 
   def create?
-    false
+    return false if @user.nil?
+
+    @user.admin?
   end
 
   def new?
@@ -23,7 +29,9 @@ class ApplicationPolicy
   end
 
   def update?
-    false
+    return false if @user.nil?
+
+    @user.admin?
   end
 
   def edit?
@@ -31,7 +39,9 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    return false if @user.nil?
+
+    @user.admin?
   end
 
   class Scope

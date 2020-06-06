@@ -4,6 +4,7 @@ class ScriptsController < ApplicationController
   # GET /scripts
   # GET /scripts.json
   def index
+    authorize(Script)
     @scripts = Script.all
   end
 
@@ -62,13 +63,15 @@ class ScriptsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_script
-      @script = Script.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def script_params
-      params.require(:script).permit(:title, :code, :aasm_state, :path_to_application, :command)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_script
+    @script = Script.find(params[:id])
+    authorize(@script)
+  end
+
+  # Only allow a list of trusted parameters through.
+  def script_params
+    params.require(:script).permit(:title, :code, :aasm_state, :path_to_application, :command)
+  end
 end

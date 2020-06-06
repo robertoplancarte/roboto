@@ -3,6 +3,8 @@ require 'test_helper'
 class ExecutionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @execution = executions(:one)
+    @user        = users(:admin)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class ExecutionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create execution" do
     assert_difference('Execution.count') do
-      post executions_url, params: { execution: { aasm_state: @execution.aasm_state, environment_id: @execution.environment_id, finished_at: @execution.finished_at, input: @execution.input, output: @execution.output, started_at: @execution.started_at, user_id: @execution.user_id } }
+      post executions_url, params: { execution: { aasm_state: @execution.aasm_state, environment_id: @execution.environment_id, finished_at: @execution.finished_at, input: @execution.input, output: @execution.output, started_at: @execution.started_at, user_id: @execution.user_id, script_id: @execution.script_id } }
     end
 
     assert_redirected_to execution_url(Execution.last)

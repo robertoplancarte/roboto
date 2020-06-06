@@ -4,10 +4,14 @@
       <h1 class="mb-8 text-3xl text-center">Sign up</h1>
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
-        <input type="text" class="block w-full p-3 mb-4 border rounded border-grey-light" name="fullname" placeholder="Full Name" />
+        <%= f.text_field :name, 
+          autofocus: true, 
+          autocomplete: "Name", 
+          placeholder: "Full Name", 
+          class: "block w-full p-3 mb-4 border rounded border-grey-light"%>
+
 
         <%= f.email_field :email, 
-          autofocus: true, 
           autocomplete: "email", 
           placeholder: "Email", 
           class: "block w-full p-3 mb-4 border rounded border-grey-light"%>

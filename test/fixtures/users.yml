@@ -18,8 +18,10 @@
 #
 one: 
   email: one@test.com
-# column: value
-#
+
 two:
   email: two@test.com
-# column: value
+
+admin:
+  email: admin@test.com
+  roles: {admin: true}

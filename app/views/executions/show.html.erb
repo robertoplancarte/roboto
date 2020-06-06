@@ -19,20 +19,22 @@
     <%= @execution.aasm_state %>
   </p>
 
-  <p>
-    <strong>Started at:</strong>
-    <%= @execution.started_at %>
+  <p title=<%= @execution.started_at.to_s.split(' ').join('_') if @execution.started_at.present? %>>
+    <strong>Started:</strong>
+      <%= time_ago_in_words(@execution.started_at) + ' ago' if @execution.started_at.present? %>
+    </td>
   </p>
 
-  <p>
-    <strong>Finished at:</strong>
-    <%= @execution.finished_at %>
+  <p title=<%= @execution.finished_at.to_s.split(' ').join('_') if @execution.finished_at.present? %>>
+    <strong>Started:</strong>
+      <%= time_ago_in_words(@execution.finished_at) + ' ago' if @execution.finished_at.present? %>
+    </td>
   </p>
 
   <p>
     <strong>Duration:</strong>
     <% if @execution.finished_at.present? && @execution.started_at.present? %>
-      <%=(Time.parse(@execution.finished_at) - Time.parse(@execution.started_at)).to_s + 's' %>
+      <%= distance_of_time_in_words(@execution.finished_at, @execution.started_at) %>
     <% end %>
   </p>
 

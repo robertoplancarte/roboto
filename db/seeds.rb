@@ -5,15 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user = User.create(email: 'admin@test.com', password: '1234567890', password_confirmation: '1234567890')
+user = User.create(email: 'admin@test.com', password: '1234567890', password_confirmation: '1234567890', name: 'Roberto Plancarte')
 user.admin = true
 user.save!
+puts user.errors.inspect
 
-user = User.create(email: 'developer@test.com', password: '1234567890', password_confirmation: '1234567890')
+user = User.create(email: 'developer@test.com', password: '1234567890', password_confirmation: '1234567890', name: 'Guillermo Romero')
 user.developer = true
 user.save!
 
-user = User.create(email: 'tester@test.com', password: '1234567890', password_confirmation: '1234567890')
+user = User.create(email: 'tester@test.com', password: '1234567890', password_confirmation: '1234567890', name: 'Aaron Aycock')
 user.tester = true
 user.save!
 
@@ -22,7 +23,6 @@ user.supporter = true
 user.save!
 
 environment = Environment.create(name: 'development',
-
                                  private_key_path: '/home/robertoplancarte/.ssh/keys/local',
                                  fqdn: 'localhost',
                                  user_name: 'robertoplancarte')

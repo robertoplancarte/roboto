@@ -17,6 +17,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_person_name
+
   # Add account roles to this line
   ROLES = %i[admin developer tester supporter].freeze
 
