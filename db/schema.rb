@@ -26,7 +26,10 @@ ActiveRecord::Schema.define(version: 2020_06_01_042620) do
     t.datetime "started_at"
     t.datetime "finished_at"
     t.string "input"
-    t.string "output"
+    t.string "stdout_data"
+    t.string "stderr_data"
+    t.string "exit_code"
+    t.string "exit_signal"
     t.integer "user_id", null: false
     t.integer "environment_id", null: false
     t.integer "script_id", null: false

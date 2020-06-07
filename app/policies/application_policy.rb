@@ -1,9 +1,11 @@
 class ApplicationPolicy
+  attr_accessor :message
   attr_reader :user, :record
 
   def initialize(user, record)
     @user = user
     @record = record
+    @message = ""
   end
 
   def index?

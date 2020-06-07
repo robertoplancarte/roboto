@@ -1,8 +1,13 @@
 class ExecutionsController < ApplicationController
-  before_action :set_execution, only: [:show, :edit, :update, :destroy, :execute]
+  before_action :set_execution, only: [:show, :edit, :update, :destroy, :action]
   # POST /executions/1/execute
-  def execute
-    ExecuteJob.perform_later(@execution)
+  def action
+    authorize(@execution)
+    @execution.send(execution_params.dig(:action) + '!')
+    respond_to do |format|
+      format.html { redirect_to execution_url(@execution), notice: "Successfully ran action '#{execution_params.dig(:action)}' on execution." }
+      format.json { head :no_content }
+    end
   end
 
   # GET /executions
@@ -74,6 +79,6 @@ class ExecutionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def execution_params
-      params.require(:execution).permit(:aasm_state, :started_at, :finished_at, :input, :output, :user_id, :environment_id, :script_id)
+      params.require(:execution).permit(:aasm_state, :started_at, :finished_at, :input, :output, :user_id, :environment_id, :script_id, :action)
     end
 end

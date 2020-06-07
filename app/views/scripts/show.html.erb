@@ -1,29 +1,38 @@
-<p id="notice"><%= notice %></p>
+<div class="flex flex-col min-h-screen bg-grey-lighter">
+  <div class="container w-full px-2 mx-auto lg:w-1/3">
+    <div class="w-full px-6 py-8 text-black bg-white rounded shadow-md">
+      <h1 class="mb-8 text-3xl text-center text-gray-600">Script: <%= @script.title %></h1>
+      <div class="flex justify-center mb-5">
+        <table class="border border-separate rounded">
+        <tr>
+        <td class="p-2 border-r">Actions</td>
+        <% @script.aasm.events(permitted: true).map(&:name).each do |transition| %>
+          <td>
+            <%= button_to transition, action_script_path(@script), { params: {script: {action: transition} }, data: { confirm: "Are you sure?" }, class: "rounded px-2 text-gray-600 hover:bg-gray-400 cursor-pointer"}  %>
+          </td>
+        <% end %>
+        </tr>
+        </table>
+      </div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @script.title %>
-</p>
+      <%= form_with(model: @script, local: true) do |form| %>
+        <%= form.text_field :path_to_application, disabled: true, placeholder: "Application path", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+        <%= form.text_field :command, disabled: true, placeholder: "Command", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
 
-<p>
-  <strong>Code:</strong>
-  <%= @script.code %>
-</p>
+        <div class="mb-5">
+          <div data-controller="codemirror" class="h-auto">
+            <%= form.text_area :code, {'data-target':'codemirror.code' } %>
+          </div>
+        </div>
 
-<p>
-  <strong>Aasm state:</strong>
-  <%= @script.aasm_state %>
-</p>
+        <p>
+          <strong>State:</strong>
+          <%= @script.aasm_state %>
+        </p>
 
-<p>
-  <strong>Path to application:</strong>
-  <%= @script.path_to_application %>
-</p>
-
-<p>
-  <strong>Command:</strong>
-  <%= @script.command %>
-</p>
-
-<%= link_to 'Edit', edit_script_path(@script) %> |
-<%= link_to 'Back', scripts_path %>
+        <%= link_to 'Edit', edit_script_path(@script) %> |
+        <%= link_to 'Back', scripts_path %>
+      <% end %>
+    </div>
+  </div>
+</div>

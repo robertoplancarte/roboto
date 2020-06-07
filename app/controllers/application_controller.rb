@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def user_not_authorized
-    redirect_to(request.referrer || root_path, alert: "I'm sorry#{' ' + current_user.first_name}, I'm afraid you can't do that.")
+  def user_not_authorized(error)
+    redirect_to(request.referrer || root_path, alert: "I'm sorry#{' ' + current_user.first_name}, I'm afraid you can't do that. #{error.policy.message}")
   end
 end

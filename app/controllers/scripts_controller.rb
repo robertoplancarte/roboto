@@ -1,5 +1,15 @@
 class ScriptsController < ApplicationController
-  before_action :set_script, only: [:show, :edit, :update, :destroy]
+  before_action :set_script, only: [:show, :edit, :update, :destroy, :action]
+  # POST /scripts/1/<actiion>
+  def action
+    authorize(@script)
+    @script.send(script_params.dig(:action) + '!')
+    respond_to do |format|
+      format.html { redirect_to scripts_url, notice: "Successfully ran action '#{script_params.dig(:action)}' on script." }
+      format.json { head :no_content }
+    end
+  end
+
 
   # GET /scripts
   # GET /scripts.json
@@ -72,6 +82,6 @@ class ScriptsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def script_params
-    params.require(:script).permit(:title, :code, :aasm_state, :path_to_application, :command)
+    params.require(:script).permit(:title, :code, :aasm_state, :path_to_application, :command, :action)
   end
 end

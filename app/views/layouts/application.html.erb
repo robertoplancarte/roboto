@@ -27,8 +27,8 @@
       <ul class="flex float-right py-4 mr-5 space-x-10">
         <% if user_signed_in? %>
         <li>
-          <%= current_user.active_roles.first.try :capitalize %>
           <%= current_user.email %>        
+          <%= if role = current_user.active_roles.first.presence then role.capitalize.to_s.prepend(" | ") else "" end %>
         </li>
         <li class="hover:text-green-400">
           <%= link_to('Logout', destroy_user_session_path, method: :delete) %>        

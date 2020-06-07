@@ -1,8 +1,17 @@
 <div class="container max-w-3xl p-5 mx-auto bg-white shadow rounded-md">
-  <h1 class="mb-8 text-3xl text-center">Execution</h1>
-  <p id="notice"><%= notice %></p>
-
-  <p><%= button_to 'Execute', execute_execution_path(@execution) %></p>
+  <h1 class="text-3xl text-center">Execution</h1>
+  <div class="flex justify-center mb-5">
+    <table class="border border-separate rounded">
+    <tr>
+    <td class="p-2 border-r">Actions</td>
+    <% @execution.aasm.events(permitted: true).map(&:name).each do |transition| %>
+      <td>
+        <%= button_to transition, action_execution_path(@execution), {params: { execution: {action: transition} }, data: { confirm: "Are you sure?" }, class: "rounded px-2 text-gray-600 hover:bg-gray-400 cursor-pointer"} %>
+      </td>
+    <% end %>
+    </tr>
+    </table>
+  </div>
 
   <p>
     <strong>User:</strong>
@@ -26,7 +35,7 @@
   </p>
 
   <p title=<%= @execution.finished_at.to_s.split(' ').join('_') if @execution.finished_at.present? %>>
-    <strong>Started:</strong>
+    <strong>Finished:</strong>
       <%= time_ago_in_words(@execution.finished_at) + ' ago' if @execution.finished_at.present? %>
     </td>
   </p>
@@ -39,8 +48,8 @@
   </p>
 
   <p>
-    <strong>Code for script: <%= @execution.script.title %></strong>
-    <%= text_area_tag 'code', @execution.script.code, disabled: true  %>
+    <strong>Script:</strong>
+    <%= link_to @execution.script.title, script_path(@execution.script) %>
   </p>
 
   <p>
@@ -51,9 +60,14 @@
   <p>
     <strong>Output:</strong>
     <br>
-    <%= text_area_tag 'output', @execution.output, disabled: true  %>
+    <%= text_area_tag 'output', @execution.stdout_data, disabled: true  %>
   </p>
 
+  <p>
+    <strong>Errors:</strong>
+    <br>
+    <%= text_area_tag 'errors', @execution.stderr_data, disabled: true  %>
+  </p>
   <hr class="my-5">
   <%= link_to 'Edit', edit_execution_path(@execution) %> |
   <%= link_to 'Back', executions_path %>
