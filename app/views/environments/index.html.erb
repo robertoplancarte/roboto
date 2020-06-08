@@ -19,13 +19,17 @@
           <td><%= environment.private_key_path %></td>
           <td><%= environment.fqdn %></td>
           <td><%= environment.user_name %></td>
-          <td><%= link_to 'Show', environment %></td>
-          <td><%= link_to 'Edit', edit_environment_path(environment) %></td>
-          <td><%= link_to 'Destroy', environment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'show', environment, class: "rounded px-2 text-gray-800 hover:bg-gray-400 cursor-pointer bg-gray-400"   %></td>
+          <td><%= link_to 'edit', edit_environment_path(environment), class: "rounded px-2 text-gray-800 hover:bg-gray-400 cursor-pointer bg-gray-400"   %></td>
+          <td><%= link_to 'destroy', environment, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded px-2 text-red-400 hover:bg-gray-400 cursor-pointer bg-gray-400"   %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
+  <div class="float-right mx-5 my-2 overflow-auto text-gray-600">
+    <%= paginate @environments%>
+  </div>
 
   <hr class="my-5">
 

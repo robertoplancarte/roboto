@@ -2,7 +2,6 @@ class ExecutionsController < ApplicationController
   before_action :set_execution, only: [:show, :edit, :update, :destroy, :action]
   # POST /executions/1/execute
   def action
-    authorize(@execution)
     @execution.send(execution_params.dig(:action) + '!')
     respond_to do |format|
       format.html { redirect_to execution_url(@execution), notice: "Successfully ran action '#{execution_params.dig(:action)}' on execution." }
@@ -13,7 +12,8 @@ class ExecutionsController < ApplicationController
   # GET /executions
   # GET /executions.json
   def index
-    @executions = Execution.all
+    authorize Execution
+    @executions = Execution.includes(:user, :environment, :script).order(started_at: :desc).page params[:page]
   end
 
   # GET /executions/1
@@ -75,6 +75,7 @@ class ExecutionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_execution
       @execution = Execution.find(params[:id])
+      authorize(@execution)
     end
 
     # Only allow a list of trusted parameters through.

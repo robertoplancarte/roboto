@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'analytics/index'
   resources :executions do
     member do
       post 'action'

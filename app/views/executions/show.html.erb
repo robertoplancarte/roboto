@@ -29,9 +29,11 @@
   </p>
 
   <p title=<%= @execution.started_at.to_s.split(' ').join('_') if @execution.started_at.present? %>>
-    <strong>Started:</strong>
-      <%= time_ago_in_words(@execution.started_at) + ' ago' if @execution.started_at.present? %>
-    </td>
+    <% if @execution.started_at && !@execution.started_at.past? %>
+      <strong>Will Start:</strong> in <%= time_ago_in_words(@execution.started_at) %>
+    <% else %>
+      <strong>Started:</strong> <%= time_ago_in_words(@execution.started_at) + ' ago' if @execution.started_at.present? %>
+    <% end %>
   </p>
 
   <p title=<%= @execution.finished_at.to_s.split(' ').join('_') if @execution.finished_at.present? %>>
@@ -69,6 +71,5 @@
     <%= text_area_tag 'errors', @execution.stderr_data, disabled: true  %>
   </p>
   <hr class="my-5">
-  <%= link_to 'Edit', edit_execution_path(@execution) %> |
-  <%= link_to 'Back', executions_path %>
+  <%= link_to 'Back', executions_path, class: "px-4 py-3 text-center text-white bg-gray-600 rounded w-full hover:bg-gray-800" %>
 </div>

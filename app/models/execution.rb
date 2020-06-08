@@ -1,4 +1,5 @@
 class Execution < ApplicationRecord
+  has_paper_trail only: [:aasm_state]
   belongs_to :user
   belongs_to :environment
   belongs_to :script
@@ -6,9 +7,8 @@ class Execution < ApplicationRecord
   include AASM
 
   aasm do
-    state :new, initial: true, before_enter: :reset_all
-    state :approved
-    state :scheduled, after_enter: :schedule_job
+    state :new, initial: true
+    state :approved, after_enter: :schedule_job
     state :disapproved
     state :expired
     state :succeeded
@@ -23,17 +23,8 @@ class Execution < ApplicationRecord
       transitions from: :new, to: :approved
     end
 
-    event :execute do
-      transitions from: :scheduled, to: :failed, if: :exit_code
-      transitions from: :scheduled, to: :succeeded
-    end
-
     event :disapprove do
       transitions from: :new, to: :disapproved
-    end
-
-    event :schedule do
-      transitions from: :approved, to: :scheduled
     end
 
     event :expire do
@@ -59,6 +50,10 @@ class Execution < ApplicationRecord
     else
       ExecuteJob.set(wait_until: started_at).perform_later(self)
     end
+  end
+
+  def exit_code_is_zero?
+    exit_code.to_i.zero?
   end
 
   def reset_all

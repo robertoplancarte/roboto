@@ -11,21 +11,24 @@
     </div>
   <% end %>
 
-    <%= form.text_field :started_at, placeholder: "Start at", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+    <%= form.datetime_local_field :started_at, placeholder: "Start at", class: "block w-full p-3 mb-4 border rounded border-grey-light", title:"start at"%> 
 
-    <%= form.text_field :input, placeholder: "Input", class: "block w-full p-3 mb-4 border rounded border-grey-light"%> 
+    <%= form.text_field :input, placeholder: "Input", class: "block w-full p-3 mb-4 border rounded border-grey-light", title:"input"%> 
 
-  <div class="p-3 mb-5 border rounded ">
+  <div class="p-3 mb-5 border rounded ", title="environment">
     <%= form.label :environment_id, "Environment:", class: "text-gray-500"%>
     <%= form.select :environment_id, Environment.all.pluck(:name, :id), {}, {class: "bg-transparent float-right"} %>
   </div>
 
-  <div class="p-3 mb-5 border rounded ">
+  <div class="p-3 mb-5 border rounded ", title="script">
     <%= form.label :scriptid, "Script:", class: "text-gray-500"%>
     <%= form.select :script_id, Script.all.pluck(:title, :id), {}, {class: "bg-transparent float-right"} %>
   </div>
 
-  <div class="w-full">
-    <%= form.submit class: "py-3 text-center text-white bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none" %>
+  <hr class="my-5">
+
+  <div class="flex justify-around actions">
+    <%= form.submit class: "py-3 text-center mr-5 text-gray-100 bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none"  %>
+    <%= link_to 'Cancel', executions_path, class: "ml-5 px-4 py-3 text-center text-white bg-gray-600 rounded w-full hover:bg-gray-800" %>
   </div>
 <% end %>

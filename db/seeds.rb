@@ -27,6 +27,12 @@ environment = Environment.create(name: 'development',
                                  fqdn: 'localhost',
                                  user_name: 'robertoplancarte')
 
+
+environment = Environment.create(name: 'production',
+                                 private_key_path: '/home/robertoplancarte/.ssh/keys/local',
+                                 fqdn: 'localhost',
+                                 user_name: 'robertoplancarte')
+
 script = Script.create(title: 'test',
                        code: 'puts Environment.find_by(name: ARGV[0]).id',
                        path_to_application: '/home/robertoplancarte/prometheus',

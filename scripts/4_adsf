@@ -1,0 +1,8 @@
+$stdout.sync = true
+puts "sleepy"
+sleep(69)
+puts "sleepy"
+sleep(69)
+puts "sleepy"
+sleep(69)
+puts "sleepy"

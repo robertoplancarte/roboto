@@ -11,13 +11,24 @@
     </div>
   <% end %>
 
-    <%= form.text_field :name, placeholder: "Name", class: "block w-full p-3 mb-4 border rounded border-grey-light"%>
+  <div data-controller="sshconnection">
+    <%= form.text_field :user_name, placeholder: "Username", class: "block w-full p-3 mb-4 border rounded border-grey-light", 'data-target': 'sshconnection.user_name', 'data-action':"sshconnection#evalstring", title:"user name" %>
 
-    <%= form.text_field :private_key_path, placeholder: "Private Key Path", class: "block w-full p-3 mb-4 border rounded border-grey-light"%>
+    <%= form.text_field :fqdn, placeholder: "FQDN", class: "block w-full p-3 mb-4 border rounded border-grey-light", 'data-target': 'sshconnection.fqdn', 'data-action':"sshconnection#evalstring", title:"FQDN" %>
 
-    <%= form.text_field :fqdn, placeholder: "FQDN", class: "block w-full p-3 mb-4 border rounded border-grey-light" %>
+    <%= form.text_field :private_key_path, placeholder: "Private Key Path", class: "block w-full p-3 mb-4 border rounded border-grey-light", 'data-target': 'sshconnection.key', 'data-action':"sshconnection#evalstring", title:"private ssh key path" %>
 
-    <%= form.text_field :user_name, placeholder: "Username", class: "block w-full p-3 mb-4 border rounded border-grey-light" %>
+    <%= form.text_field :name, placeholder: "Environment Name", class: "block w-full p-3 mb-4 border rounded border-grey-light", 'data-target': 'sshconnection.name', 'data-action':"sshconnection#evalstring", title:"environment name"  %>
 
-    <%= form.submit  class: "py-3 text-center text-white bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none" %>
+    <div class="w-full p-3 text-gray-300 bg-gray-800 rounded", title="ssh connection string" >
+      <span class="text-green-400">prometheus</span>@<span class="text-blue-400">server</span> ~ $ <span data-target="sshconnection.connection"></span>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="flex justify-around actions">
+    <%= form.submit class: "py-3 text-center mr-5 text-gray-100 bg-green-400 rounded w-full hover:bg-green-600 focus:outline-none"  %>
+    <%= link_to 'Cancel', environments_path, class: "ml-5 px-4 py-3 text-center text-white bg-gray-600 rounded w-full hover:bg-gray-800" %>
+  </div>
 <% end %>

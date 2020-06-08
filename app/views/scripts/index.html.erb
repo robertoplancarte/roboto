@@ -19,13 +19,17 @@
           <td><%= script.path_to_application.split('/').last %></td>
           <td><%= script.command.split('/').last  %></td>
           <td><%= script.aasm_state %></td>
-          <td><%= link_to 'Show', script %></td>
-          <td><%= link_to 'Edit', edit_script_path(script) %></td>
-          <td><%= link_to 'Destroy', script, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'show', script, class: "rounded px-2 text-gray-800 bg-gray-400 hover:bg-gray-500 cursor-pointer text-center"  %></td>
+          <td><%= link_to 'edit', edit_script_path(script), class: "rounded px-2 text-gray-800 bg-gray-400 hover:bg-gray-500 cursor-pointer text-center"  %></td>
+          <td><%= link_to 'destroy', script, method: :delete, data: { confirm: 'Are you sure?' }, class: "rounded px-2 text-red-400 hover:bg-gray-400 cursor-pointer bg-gray-400"  %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
+  <div class="float-right mx-5 my-2 overflow-auto text-gray-600">
+    <%= paginate @scripts%>
+  </div>
 
   <hr class="my-5">
 

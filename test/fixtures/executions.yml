@@ -1,21 +1,27 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  aasm_state: MyString
+  aasm_state: new
   started_at: MyString
   finished_at: MyString
   input: MyString
-  output: MyString
+  stdout_data: MyString
+  stderr_data: MyString
+  exit_code: 0
+  exit_signal: nil
   user: one
   environment: one
   script: one
 
 two:
-  aasm_state: MyString
+  aasm_state: new
   started_at: MyString
   finished_at: MyString
   input: MyString
-  output: MyString
+  stdout_data: MyString
+  stderr_data: MyString
+  exit_code: 0
+  exit_signal: nil
   user: two
   environment: two
   script: two

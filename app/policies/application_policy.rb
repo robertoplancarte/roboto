@@ -11,13 +11,13 @@ class ApplicationPolicy
   def index?
     return false if @user.nil?
 
-    @user.admin?
+    @user.tester? || @user.admin?
   end
 
   def show?
     return false if @user.nil?
 
-    @user.admin?
+    @user.tester? || @user.admin?
   end
 
   def create?

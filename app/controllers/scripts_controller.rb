@@ -15,7 +15,7 @@ class ScriptsController < ApplicationController
   # GET /scripts.json
   def index
     authorize(Script)
-    @scripts = Script.all
+    @scripts = Script.order(started_at: :desc).page params[:page]
   end
 
   # GET /scripts/1

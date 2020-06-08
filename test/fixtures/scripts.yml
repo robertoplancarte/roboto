@@ -3,13 +3,13 @@
 one:
   title: MyString
   code: MyText
-  aasm_state: MyString
+  aasm_state: new
   path_to_application: MyString
   command: MyString
 
 two:
   title: MyString
-  code: MyText
+  code: new
   aasm_state: MyString
   path_to_application: MyString
   command: MyString

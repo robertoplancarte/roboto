@@ -11,6 +11,5 @@ class ExecuteJob < ApplicationJob
     end
   ensure
     execution.update(finished_at: Time.now)
-    execution.execute!
   end
 end

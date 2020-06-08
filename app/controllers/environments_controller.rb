@@ -5,7 +5,7 @@ class EnvironmentsController < ApplicationController
   # GET /environments.json
   def index
     authorize Environment
-    @environments = Environment.all
+    @environments = Environment.order(started_at: :desc).page params[:page]
   end
 
   # GET /environments/1
