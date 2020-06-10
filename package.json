@@ -9,6 +9,7 @@
     "codemirror": "^5.54.0",
     "flatpickr": "^4.6.3",
     "stimulus": "^1.1.1",
+    "stimulus_reflex": "^3.2.2",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",

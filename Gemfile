@@ -29,6 +29,7 @@ gem 'bcrypt_pbkdf'
 gem 'aasm'
 gem 'paper_trail'
 gem 'kaminari'
+gem 'stimulus_reflex'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

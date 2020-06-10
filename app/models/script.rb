@@ -5,6 +5,7 @@ class Script < ApplicationRecord
   validates :title, presence: true
   validates :path_to_application, presence: true
   validates :command, presence: true
+  USER_EVENTS = %i[approve]
 
   include AASM
 
@@ -14,7 +15,7 @@ class Script < ApplicationRecord
     state :tested
     state :deployed
 
-    event :test do
+    event :approve do
       transitions to: :tested
     end
 
@@ -24,6 +25,10 @@ class Script < ApplicationRecord
 
     event :deploy do
       transitions from: :tested, to: :deployed
+    end
+
+    event :reset do
+      transitions to: :new
     end
   end
 
