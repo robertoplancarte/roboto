@@ -7,7 +7,7 @@ class CreateExecutions < ActiveRecord::Migration[6.0]
       t.string :input
       t.string :stdout_data
       t.string :stderr_data
-      t.string :exit_code
+      t.integer :exit_code
       t.string :exit_signal
       t.references :user, null: false, foreign_key: true
       t.references :environment, null: false, foreign_key: true

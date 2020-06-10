@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-    <%= form.datetime_local_field :started_at, placeholder: "Start at", class: "block w-full p-3 mb-4 border rounded border-grey-light", title:"start at"%> 
+  <%= form.text_field :started_at, placeholder: "Start at", class: "block w-full p-3 mb-4 border rounded border-grey-light", title:"start at", data: {controller: "flatpickr", target: "flatpickr.self"}%> 
 
     <%= form.text_field :input, placeholder: "Input", class: "block w-full p-3 mb-4 border rounded border-grey-light", title:"input"%> 
 

@@ -4,31 +4,50 @@ class Execution < ApplicationRecord
   belongs_to :environment
   belongs_to :script
   has_many :execution_plans
+  
+  USER_EVENTS = %i(approve reset).freeze
+  
   include AASM
 
   aasm do
+    before_all_events :before_all_events
     state :new, initial: true
     state :approved, after_enter: :schedule_job
+    state :reset_model, after_enter: :reset_all
     state :disapproved
     state :expired
+    state :running
     state :succeeded
     state :failed
 
     event :reset do
-      transitions to: :new
+      transitions to: :reset_model
     end
 
     event :approve do
       transitions from: :new, to: :expired, if: :expired?
       transitions from: :new, to: :approved
+      transitions from: :reset_model, to: :expired, if: :expired?
+      transitions from: :reset_model, to: :approved
     end
 
     event :disapprove do
       transitions from: :new, to: :disapproved
+      transitions from: :reset_model, to: :disapproved
     end
 
     event :expire do
       transitions from: :new, to: :expired
+      transitions from: :reset_model, to: :expired
+    end
+
+    event :start do
+      transitions from: :approved, to: :running
+    end
+
+    event :finish do
+      transitions from: :running, to: :succeeded, if: :exit_code_is_zero?
+      transitions from: :running, to: :failed
     end
   end
 
@@ -58,5 +77,9 @@ class Execution < ApplicationRecord
 
   def reset_all
     update(started_at: nil, finished_at: nil, stdout_data: nil, stderr_data: nil)
+  end
+
+  def before_all_events
+    self.paper_trail_event = aasm.current_event
   end
 end

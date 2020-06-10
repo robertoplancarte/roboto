@@ -9,7 +9,7 @@ class ExecutionPolicy < ApplicationPolicy
 
     if @record.environment.name == 'production'
       @message = 'Only developers or admins can aprove executions in production'
-      return if !@user.admin? || !@user.developer
+      return false if !@user.admin? && !@user.developer
 
       @message = "I can't run untested scripts in production!"
       return false if %w[new untested].include? @record.script.aasm_state

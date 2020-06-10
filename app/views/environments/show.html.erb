@@ -11,6 +11,8 @@
 
           <%= form.text_field :private_key_path, placeholder: "Private Key Path", class: "block w-full p-3 mb-4 border rounded border-grey-light", 'data-target': 'sshconnection.key', 'data-action':"sshconnection#evalstring", disabled: true, title:"private ssh key path"  %>
 
+          <%= form.text_field :name, placeholder: "Environment Name", class: "block w-full p-3 mb-4 border rounded border-grey-light", 'data-target': 'sshconnection.name', 'data-action':"sshconnection#evalstring", title:"environment name", disabled: true  %>
+
           <div class="w-full p-3 text-gray-300 bg-gray-800 rounded", title="ssh connection string" >
             <span class="text-green-400">prometheus</span>@<span class="text-blue-400">server</span> ~ $ <span data-target="sshconnection.connection"></span>
           </div>

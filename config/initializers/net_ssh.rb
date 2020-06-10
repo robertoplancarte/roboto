@@ -22,7 +22,6 @@ class Net::SSH::Connection::Session
 
         channel.on_request('exit-status') do |_, data|
           exit_code = data.read_long.to_i
-          execution.update exit_code: data.read_long.to_i
         end
 
         channel.on_request('exit-signal') do |_, data|
@@ -33,6 +32,7 @@ class Net::SSH::Connection::Session
     ssh.wait
     self.loop
 
-    raise CommandFailed, "Command \"#{command}\" returned exit code #{exit_code}" unless exit_code.zero?
+    execution.update(exit_code: exit_code)
+    #raise CommandFailed, "Command \"#{command}\" returned exit code #{exit_code}" unless exit_code.zero?
   end
 end

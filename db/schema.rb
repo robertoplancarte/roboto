@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2020_06_07_054533) do
     t.string "input"
     t.string "stdout_data"
     t.string "stderr_data"
-    t.string "exit_code"
+    t.integer "exit_code"
     t.string "exit_signal"
     t.integer "user_id", null: false
     t.integer "environment_id", null: false
