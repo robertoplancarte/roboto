@@ -1,0 +1,76 @@
+<div class="container max-w-3xl p-5 mx-auto bg-white shadow rounded-md" id="<%= dom_id(execution) %>">
+  <h1 class="text-3xl text-center"> Execution </h1>
+  <div class="flex justify-center mb-5">
+    <table class="border border-separate rounded">
+    <tr>
+    <td class="p-2">Actions:</td>
+    <% (Execution::USER_EVENTS & execution.aasm.events(permitted: true).map(&:name)).each do |transition| %>
+      <td class="p-2">
+        <%= button_to transition, action_execution_path(execution), {params: { execution: {action: transition} }, data: { confirm: "Are you sure?" }, class: "rounded px-2 text-gray-600 hover:bg-gray-400 cursor-pointer"} %>
+      </td>
+    <% end %>
+      <td class="p-2 border-l">
+        State: 
+        <%= execution.aasm_state.titleize %>
+      </td>
+    </tr>
+    </table>
+  </div>
+
+  <p>
+    <strong>User:</strong>
+    <%= execution.user.email %>
+  </p>
+
+  <p>
+    <strong>Environment:</strong>
+    <%= execution.environment.name %>
+  </p>
+
+
+  <p title=<%= execution.started_at.to_s.split(' ').join('_') if execution.started_at.present? %>>
+    <% if execution.started_at && !execution.started_at.past? %>
+      <strong>Will Start:</strong> in <%= time_ago_in_words(execution.started_at) %>
+    <% else %>
+      <strong>Started:</strong> <%= time_ago_in_words(execution.started_at) + ' ago' if execution.started_at.present? %>
+    <% end %>
+  </p>
+
+  <p title=<%= execution.finished_at.to_s.split(' ').join('_') if execution.finished_at.present? %>>
+    <strong>Finished:</strong>
+      <%= time_ago_in_words(execution.finished_at) + ' ago' if execution.finished_at.present? %>
+    </td>
+  </p>
+
+  <p>
+    <strong>Duration:</strong>
+    <% if execution.finished_at.present? && execution.started_at.present? %>
+      <%= distance_of_time_in_words(execution.finished_at, execution.started_at) %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Script:</strong>
+    <%= link_to execution.script.title, script_path(execution.script) %>
+  </p>
+
+  <p>
+    <strong>Input:</strong>
+    <br> <%= text_area_tag 'input', execution.input, disabled: true %>
+  </p>
+
+  <p>
+    <strong>Output:</strong>
+    <br>
+    <%= text_area_tag 'output', execution.stdout_data, disabled: true  %>
+  </p>
+
+  <p>
+    <strong>Errors:</strong>
+    <br>
+    <%= text_area_tag 'errors', execution.stderr_data, disabled: true  %>
+  </p>
+  <hr class="my-5">
+  <%= link_to 'Back', executions_path, class: "px-4 py-3 text-center text-white bg-gray-600 rounded w-full hover:bg-gray-800" %>
+</div>
+

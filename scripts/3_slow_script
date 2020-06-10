@@ -1,0 +1,61 @@
+$stdout.sync = true
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(11)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
+sleep(10)
+puts "I'm sleepy"
